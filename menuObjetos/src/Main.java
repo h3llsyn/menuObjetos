@@ -99,7 +99,7 @@ public class Main {
     }
 
     private static void excluirTurma() {
-        if(isVazio(listaTurmas)) {
+        if(isVazioTurma(listaTurmas)) {
             System.out.println("Não há turmas cadastradas");
             return;
         }
@@ -115,11 +115,21 @@ public class Main {
         }
     }
 
-    private static boolean isVazio(ArrayList<Turma> listaTurmas) {
+    private static boolean isVazioTurma(ArrayList<Turma> listaTurmas) {
         if (listaTurmas.isEmpty()) return true;
 
         for (Turma turma : listaTurmas){
             if (turma.isAtivo()) return false;
+        }
+
+        return true;
+    }
+
+    private static boolean isVazioAluno(ArrayList<Aluno> listaAlunos) {
+        if (listaAlunos.isEmpty()) return true;
+
+        for (Aluno aluno : listaAlunos){
+            if (aluno.isAtivo()) return false;
         }
 
         return true;
@@ -164,7 +174,7 @@ public class Main {
     }
 
     private static void atualizarTurma() {
-        if(isVazio(listaTurmas)) {
+        if(isVazioTurma(listaTurmas)) {
             System.out.println("Não há turmas cadastradas");
             return;
         }
@@ -345,7 +355,7 @@ public class Main {
     }
 
     private static void listarTurmas() {
-        if(isVazio(listaTurmas)) {
+        if(isVazioTurma(listaTurmas)) {
             System.out.println("Não há turmas cadastradas");
             return;
         }
@@ -368,13 +378,13 @@ public class Main {
     }
 
     private static void listarAlunos() {
-//        if(isVazio(listaAlunos)) {
-//            System.out.println("Não há alunos cadastradas");
-//            return;
-//        }
-//        for(Aluno a : listaAlunos){
-//            if (a.isAtivo())
-//                System.out.println(a);
-//        }
+        if(isVazioAluno(listaAlunos)) {
+            System.out.println("Não há alunos cadastradas");
+            return;
+        }
+        for(Aluno a : listaAlunos){
+            if (a.isAtivo())
+                System.out.println(a);
+        }
     }
 }
