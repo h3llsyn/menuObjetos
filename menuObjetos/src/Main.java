@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Main {
@@ -82,12 +83,15 @@ public class Main {
                 break;
             case "2":
                 cadastrarAluno();
+                menuAlunos();
                 break;
             case "3":
                 atualizarAluno();
+                menuAlunos();
                 break;
             case "4":
                 excluirAluno();
+                menuAlunos();
                 break;
             case "5":
                 menuPrincipal();
@@ -201,6 +205,8 @@ public class Main {
 //
 //        System.out.printf("A sigla atual é: %s", listaTurmas.get(idAtualizar).getSigla());
 //        atualizarSigla(idAtualizar);
+
+
     }
 
     private static void atualizarParcial(String atributo, int idAtualizar){
@@ -374,7 +380,10 @@ public class Main {
     }
 
     private static void cadastrarAluno() {
-
+        String nome = validarNome();
+        LocalDate dataNascimento = validarData();
+        Turma turma = validarTurma();
+        Aluno aluno = new Aluno(nome, dataNascimento, turma);
     }
 
     private static void listarAlunos() {

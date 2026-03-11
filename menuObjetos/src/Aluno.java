@@ -16,7 +16,7 @@ public class Aluno {
     public Aluno(){
         this.nome = "";
         this.dataNascimento = null;
-        //this.turma =
+        this.turma = null;
         this.ativo = true;
     }
 
