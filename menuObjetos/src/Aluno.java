@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Aluno {
     private String nome;
@@ -51,4 +52,15 @@ public class Aluno {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Aluno{" +
+                "nome='" + nome + '\'' +
+                ", dataNascimento='" + dataNascimento.format(formatador) + '\'' +
+                "|| turma=" + turma +
+                '}';
+    }
 }
+

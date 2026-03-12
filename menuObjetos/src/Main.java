@@ -1,5 +1,10 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -380,11 +385,62 @@ public class Main {
     }
 
     private static void cadastrarAluno() {
+        if(isVazioTurma(listaTurmas)) {
+            System.out.println("É necessário ter turmas cadastradas para cadastrar um aluno");
+            return;
+        }
+
         String nome = validarNome();
         LocalDate dataNascimento = validarData();
         Turma turma = validarTurma();
         Aluno aluno = new Aluno(nome, dataNascimento, turma);
+        listaAlunos.add(aluno);
+        System.out.println("Aluno cadastrado com sucesso!");
     }
+
+    private static Turma validarTurma() {
+        listarTurmasIndiceSigla();
+        int indice = validaIdTurma();
+        Turma turma = listaTurmas.get(indice);
+        return turma;
+    }
+
+    private static LocalDate validarData() {
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        LocalDate data = null;
+        LocalDate hoje = LocalDate.now();
+
+        while(data == null){
+            try {
+                String dataNascimento = Leitura.dados("Digite a data de nascimento do aluno: (dd/MM/yyyy)");
+                LocalDate dataDigitada = LocalDate.parse(dataNascimento, formatoData);
+                if (dataDigitada.isAfter(hoje)) {
+                    System.out.println("A data de nascimento não pode ser uma data futura");
+                }
+                else{
+                    data = dataDigitada;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato de data inválido ou data inexistente. Use dd/MM/yyyy");
+            }
+        }
+        return data;
+    }
+
+    private static String validarNome() {
+        String nome = Leitura.dados("Digite o nome do aluno: ");
+        while (!isNome(nome)) {
+            System.out.println("Nome do aluno inválido! Não use números ou caracteres especiais");
+            nome = Leitura.dados("Digite o nome do aluno: ");
+        }
+        return nome;
+    }
+
+    private static boolean isNome(String texto) {
+        String textoSemNumeros = texto.replaceAll("^[a-zA-Z0-9.,-]+$", "");
+        return !texto.isBlank() && texto.equals(textoSemNumeros);
+    }
+
 
     private static void listarAlunos() {
         if(isVazioAluno(listaAlunos)) {
