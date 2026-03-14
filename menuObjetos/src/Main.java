@@ -437,8 +437,14 @@ public class Main {
     }
 
     private static boolean isNome(String texto) {
-        String textoSemNumeros = texto.replaceAll("^[a-zA-Z0-9.,-]+$", "");
-        return !texto.isBlank() && texto.equals(textoSemNumeros);
+//        String textoSemNumeros = texto.replaceAll("^[a-zA-Z0-9.,-]+$", "");
+//        return !texto.isBlank() && texto.equals(textoSemNumeros);
+
+        while (texto.isBlank()) {
+            System.out.println("Erro, nome vazio!");
+            texto = Leitura.dados("Digite o nome do aluno: ");
+        }
+        return texto.matches("^[a-zA-Zá-úÁ-Ú ]+$");
     }
 
 
