@@ -495,19 +495,21 @@ public class Main {
     private static String validarNome() {
         String nome = Leitura.dados("Digite o nome do aluno: ");
         while (!isNome(nome)) {
-            System.out.println("Nome do aluno inválido! Não use números ou caracteres especiais");
+            //System.out.println("Nome do aluno inválido! Não use números ou caracteres especiais");
             nome = Leitura.dados("Digite o nome do aluno: ");
         }
         return nome;
     }
 
     private static boolean isNome(String texto) {
-//        String textoSemNumeros = texto.replaceAll("^[a-zA-Z0-9.,-]+$", "");
-//        return !texto.isBlank() && texto.equals(textoSemNumeros);
+        if (texto.isBlank()) {
+            System.out.println("O nome não pode ser vazio! Por favor, digite algo.");
+            return false;
+        }
 
-        while (texto.isBlank()) {
-            System.out.println("Erro, nome vazio!");
-            texto = Leitura.dados("Digite o nome do aluno: ");
+        if (!texto.matches("^[a-zA-Zá-úÁ-Ú ]+$")) {
+            System.out.println("Nome inválido! Não use números ou caracteres especiais.");
+            return false;
         }
         return texto.matches("^[a-zA-Zá-úÁ-Ú ]+$");
     }

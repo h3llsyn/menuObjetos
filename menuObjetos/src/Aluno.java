@@ -59,7 +59,7 @@ public class Aluno {
         return "Aluno{" +
                 "Nome='" + nome + '\'' +
                 ", Data de nascimento='" + dataNascimento.format(formatador) + '\'' +
-                "|| Turma=" + turma +
+                "|| Turma='" + turma.getCurso() +'\'' +
                 '}';
     }
 }

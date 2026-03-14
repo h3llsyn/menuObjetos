@@ -57,7 +57,7 @@ public class Turma {
         return "Turma{" +
                 "Curso='" + curso + '\'' +
                 ", Sigla='" + sigla + '\'' +
-                ", Periodo=" + periodo +
+                ", Periodo='" + periodo + '\'' +
                 '}';
     }
 }
