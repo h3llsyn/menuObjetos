@@ -443,11 +443,9 @@ public class Main {
 
     private static boolean isIdadeValida(LocalDate data) {
         LocalDate hoje = LocalDate.now();
-        int idadeMinima = 14;
-        int idadeMaxima = 130;
-
         int idadeCalculo = Period.between(data, hoje).getYears();
-        if (idadeCalculo < idadeMinima || idadeCalculo > idadeMaxima) {
+
+        if (idadeCalculo < 14 || idadeCalculo > 130) {
             System.out.println("Você não tem a idade permitida (minímo 14 anos e máximo 130)\nVoltando ao menu principal...");
             menuPrincipal();
             return false;
