@@ -214,13 +214,13 @@ public class Main {
         int idAtualizar = validaIdTurma();
 
         System.out.printf("O período atual é: %s", listaTurmas.get(idAtualizar).getPeriodo());
-        atualizarParcial("período", idAtualizar);
+        atualizarTurmaParcial("período", idAtualizar);
 
         System.out.printf("O curso atual é: %s", listaTurmas.get(idAtualizar).getCurso());
-        atualizarParcial("curso", idAtualizar);
+        atualizarTurmaParcial("curso", idAtualizar);
 
         System.out.printf("A sigla atual é: %s", listaTurmas.get(idAtualizar).getSigla());
-        atualizarParcial("sigla", idAtualizar);
+        atualizarTurmaParcial("sigla", idAtualizar);
 
 //        System.out.println("O período atual é: " + listaTurmas.get(idAtualizar).getPeriodo());
 //        System.out.printf("O período atual é: %s", listaTurmas.get(idAtualizar).getPeriodo());
@@ -235,7 +235,7 @@ public class Main {
 
     }
 
-    private static void atualizarParcial(String atributo, int idAtualizar){
+    private static void atualizarTurmaParcial(String atributo, int idAtualizar){
         boolean rodarNovamente = true;
         while (rodarNovamente) {
             String opcao = Leitura.dados("\nDeseja modificar "+ atributo +" ? (S/N): ").toUpperCase();
@@ -393,7 +393,56 @@ public class Main {
     }
 
     private static void atualizarAluno() {
+        if (isVazioAluno(listaAlunos)) {
+            System.out.println("É necessário ter alunos cadastrados para atualizar");
+            return;
+        }
 
+        listarAlunosIndiceSigla();
+
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        int idAtualizar = validaIdAluno();
+
+        System.out.printf("O nome atual é: %s", listaAlunos.get(idAtualizar).getNome());
+        atualizarAlunoParcial("nome", idAtualizar);
+
+        System.out.printf("A data de nascimento atual é: %s", listaAlunos.get(idAtualizar).getDataNascimento().format(formatoData));
+        atualizarAlunoParcial("data de nascimento", idAtualizar);
+
+        System.out.printf("A turma atual é: %s", listaAlunos.get(idAtualizar).getTurma());
+        atualizarAlunoParcial("turma", idAtualizar);
+    }
+
+    private static void atualizarAlunoParcial(String atributo, int idAtualizar){
+        boolean rodarNovamente = true;
+        while (rodarNovamente) {
+            String opcao = Leitura.dados("\nDeseja modificar "+ atributo +" ? (S/N): ").toUpperCase();
+            switch (opcao) {
+                case "S":
+                    switch (atributo){
+                        case "nome":
+                            String nome = validarNome();
+                            listaAlunos.get(idAtualizar).setNome(nome);
+                            break;
+                        case "data de nascimento":
+                            LocalDate dataDeNascimento = validarData();
+                            listaAlunos.get(idAtualizar).setDataNascimento(dataDeNascimento);
+                            break;
+                        case "turma":
+                            Turma turma = validarTurma();
+                            listaAlunos.get(idAtualizar).setTurma(turma);
+                            break;
+                    }
+                    System.out.println(atributo + " atualizado com sucesso!");
+                    rodarNovamente = false;
+                    break;
+                case "N":
+                    rodarNovamente = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida! Escolha S para SIM ou N para NÃO");
+            }
+        }
     }
 
     private static void cadastrarAluno() {
