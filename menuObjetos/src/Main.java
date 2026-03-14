@@ -511,7 +511,7 @@ public class Main {
             System.out.println("Nome inválido! Não use números ou caracteres especiais.");
             return false;
         }
-        return texto.matches("^[a-zA-Zá-úÁ-Ú ]+$");
+        return true;
     }
 
 
