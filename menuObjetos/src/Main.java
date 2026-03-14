@@ -1,10 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -159,7 +156,7 @@ public class Main {
         }
     }
 
-    private static int validarItemLista(String opcao) {
+    private static int validarItemListaTurma(String opcao) {
         if (opcao.isBlank()) return -1;
 
         int opcaoNumero = -1;
@@ -174,11 +171,34 @@ public class Main {
         return indiceLista >= 0 && listaTurmas.size() > indiceLista ? indiceLista : -1;
     }
 
+    private static int validarItemListaAluno(String opcao) {
+        if (opcao.isBlank()) return -1;
+
+        int opcaoNumero = -1;
+
+        try{
+            opcaoNumero = Integer.parseInt(opcao);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+
+        int indiceLista = opcaoNumero-1;
+        return indiceLista >= 0 && listaAlunos.size() > indiceLista ? indiceLista : -1;
+    }
+
     private static void listarTurmasIndiceSigla() {
         System.out.println("\nLista das Turmas:");
         for (int i=0;i<listaTurmas.size();i++){
             if (listaTurmas.get(i).isAtivo())
                 System.out.printf("\n%d - %s",i+1, listaTurmas.get(i).getSigla());
+        }
+    }
+
+    private static void listarAlunosIndiceSigla() {
+        System.out.println("\nLista dos Alunos:");
+        for (int i=0;i<listaAlunos.size();i++){
+            if (listaAlunos.get(i).isAtivo())
+                System.out.printf("\n%d - %s",i+1, listaAlunos.get(i).getNome());
         }
     }
 
@@ -306,11 +326,28 @@ public class Main {
         int opcaoValida = -1;
         int opcaoUsuario = -1;
         while (opcaoValida==-1){
-            opcaoUsuario = validarItemLista(opcao);
+            opcaoUsuario = validarItemListaTurma(opcao);
 
             if (opcaoUsuario==-1) {
                 System.out.println("Opção inválida! Digite novamente: ");
                 opcao = Leitura.dados("Digite o número da turma desejada: ");
+            } else {
+                opcaoValida = opcaoUsuario;
+            }
+        }
+        return opcaoValida;
+    }
+
+    private static int validaIdAluno() {
+        String opcao = Leitura.dados("\nDigite o número do aluno desejado: ");
+        int opcaoValida = -1;
+        int opcaoUsuario = -1;
+        while (opcaoValida==-1){
+            opcaoUsuario = validarItemListaAluno(opcao);
+
+            if (opcaoUsuario==-1) {
+                System.out.println("Opção inválida! Digite novamente: ");
+                opcao = Leitura.dados("Digite o número do aluno desejado: ");
             } else {
                 opcaoValida = opcaoUsuario;
             }
@@ -377,7 +414,18 @@ public class Main {
     }
 
     private static void excluirAluno() {
+        if (isVazioAluno(listaAlunos)) {
+            System.out.println("Não há alunos cadastrados");
+            return;
+        }
 
+        listarAlunosIndiceSigla();
+
+        int idExcluir = validaIdAluno();
+
+        if (confirmaExclusao()) {
+            listaAlunos.get(idExcluir).setAtivo(false);
+            System.out.println("Aluno excluído com sucesso!");        }
     }
 
     private static void atualizarAluno() {

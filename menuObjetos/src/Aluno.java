@@ -57,9 +57,9 @@ public class Aluno {
     public String toString() {
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "Aluno{" +
-                "nome='" + nome + '\'' +
-                ", dataNascimento='" + dataNascimento.format(formatador) + '\'' +
-                "|| turma=" + turma +
+                "Nome='" + nome + '\'' +
+                ", Data de nascimento='" + dataNascimento.format(formatador) + '\'' +
+                "|| Turma=" + turma +
                 '}';
     }
 }
