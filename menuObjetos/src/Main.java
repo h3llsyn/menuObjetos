@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -458,14 +459,16 @@ public class Main {
         LocalDate data = null;
         LocalDate hoje = LocalDate.now();
 
+
         while(data == null){
             try {
                 String dataNascimento = Leitura.dados("Digite a data de nascimento do aluno: (dd/MM/yyyy)");
                 LocalDate dataDigitada = LocalDate.parse(dataNascimento, formatoData);
+
                 if (dataDigitada.isAfter(hoje)) {
                     System.out.println("A data de nascimento não pode ser uma data futura");
                 }
-                else{
+                else if (isIdadeValida(dataDigitada)) {
                     data = dataDigitada;
                 }
             } catch (DateTimeParseException e) {
@@ -473,6 +476,20 @@ public class Main {
             }
         }
         return data;
+    }
+
+    private static boolean isIdadeValida(LocalDate data) {
+        LocalDate hoje = LocalDate.now();
+        int idadeMinima = 14;
+        int idadeMaxima = 130;
+
+        int idadeCalculo = Period.between(data, hoje).getYears();
+        if (idadeCalculo < idadeMinima || idadeCalculo > idadeMaxima) {
+            System.out.println("Você não tem a idade permitida (minímo 14 anos e máximo 130)\nVoltando ao menu principal...");
+            menuPrincipal();
+            return false;
+        }
+        return true;
     }
 
     private static String validarNome() {
