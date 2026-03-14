@@ -285,43 +285,6 @@ public class Main {
         return curso;
     }
 
-    private static void atualizarPeriodo(int idAtualizar) {
-        boolean rodarNovamente = true;
-        while (rodarNovamente) {
-            String opcaoPeriodo = Leitura.dados("\nDeseja modificar o período? (S/N): ").toUpperCase();
-            switch (opcaoPeriodo) {
-                case "S":
-                    Periodo periodo = validarPeriodo();
-                    listaTurmas.get(idAtualizar).setPeriodo(periodo);
-                    System.out.println("Período atualizado com sucesso para " + periodo);
-                    rodarNovamente = false;
-                    break;
-                case "N":
-                    rodarNovamente = false;
-                    break;
-                default:
-                    System.out.println("Opção inválida! Escolha S para SIM ou N para NÃO");
-            }
-        }
-
-//        while (true) {
-//            String opcaoPeriodo = Leitura.dados("\nDeseja modificar o período? (S/N): ").toUpperCase();
-//            switch (opcaoPeriodo) {
-//                case "S":
-////                Periodo periodo = validarPeriodo();
-////                listaTurmas.get(idAtualizar).setPeriodo(periodo);
-//                    listaTurmas.get(idAtualizar).setPeriodo(validarPeriodo());
-//                    break;
-//                case "N":
-//                    break;
-//                default:
-//                    System.out.println("Opção inválida! Escolha S para SIM ou N para NÃO");
-//                    continue;
-//            }
-//            break;
-//        }
-    }
-
     private static int validaIdTurma() {
         String opcao = Leitura.dados("\nDigite o número da turma desejada: ");
         int opcaoValida = -1;
