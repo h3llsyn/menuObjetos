@@ -115,6 +115,12 @@ public class Main {
 
         int idExcluir = validaIdTurma();
 
+//        if (){
+//            System.out.println("Erro! Alunos cadastrados nessa turma\n" +
+//            "Voltando ao menu...");
+//            menuTurmas();
+//        }
+
         if (confirmaExclusao()){
 //            listaTurmas.remove(idExcluir);
             listaTurmas.get(idExcluir).setAtivo(false);
@@ -463,6 +469,11 @@ public class Main {
         listarTurmasIndiceSigla();
         int indice = validaIdTurma();
         Turma turma = listaTurmas.get(indice);
+        if (!turma.isAtivo()){
+            System.out.println("Erro! Turma inexistente!\n" +
+            "Voltando para o menu...");
+            menuPrincipal();
+        }
         return turma;
     }
 
