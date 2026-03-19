@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Aluno {
+public class Aluno implements Ativavel {
     private String nome;
     private LocalDate dataNascimento;
     private Turma turma;
