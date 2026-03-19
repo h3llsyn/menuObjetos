@@ -115,17 +115,27 @@ public class Main {
 
         int idExcluir = validaIdTurma();
 
-//        if (){
-//            System.out.println("Erro! Alunos cadastrados nessa turma\n" +
-//            "Voltando ao menu...");
-//            menuTurmas();
-//        }
+        if (isTurmaComAlunosAtivos(listaTurmas.get(idExcluir))) {
+            System.out.println("Erro! Alunos cadastrados nessa turma\n" +
+            "Voltando ao menu...");
+            menuTurmas();
+            return;
+        }
 
         if (confirmaExclusao()){
 //            listaTurmas.remove(idExcluir);
             listaTurmas.get(idExcluir).setAtivo(false);
             System.out.println("Turma excluída com sucesso!");
         }
+    }
+
+    private static boolean isTurmaComAlunosAtivos(Turma turma) {
+        for (Aluno aluno : listaAlunos) {
+            if (aluno.isAtivo() && aluno.getTurma().equals(turma)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean isVazioTurma(ArrayList<Turma> listaTurmas) {
